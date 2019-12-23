@@ -41,6 +41,7 @@ public:
 		if (_stackCurrentSize < STACK_CAPACITY)
 		{
 			_stack[_stackCurrentSize] = value;
+			_stackCurrentSize++;
 		}
 		else
 		{
