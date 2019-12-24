@@ -69,3 +69,9 @@ void AssignRegisterRandANDValue(Chip8Cpu& cpu, uint8_t registerIndex, uint8_t va
 
 //DXYN
 void DrawSprite(Chip8Cpu& cpu, uint8_t xRegisterIndex, uint8_t yRegisterIndex, uint8_t height);
+
+//EX9E
+void SkipIfKeyInRegisterPressed(Chip8Cpu& cpu, uint8_t registerIndex);
+
+//EXA1
+void SkipIfKeyInRegisterNotPressed(Chip8Cpu& cpu, uint8_t registerIndex);

@@ -11,6 +11,7 @@ public:
 	static constexpr unsigned int SCREEN_HIGHT = 32;
 	static constexpr unsigned int STACK_CAPACITY = 24;
 	static constexpr unsigned int SPRITE_WIDTH = 8;
+	static constexpr unsigned int NUMBER_OF_KEYS = 16;
 
 	uint8_t GPRegisters[NUMBER_OF_REGISTERS];
 	uint16_t AddressRegister;
@@ -18,6 +19,7 @@ public:
 	bool FlagRegister;
 	uint8_t Memory[MEMORY_SIZE];
 	bool ScreenBuffer[SCREEN_HIGHT * SCREEN_WIDTH];
+	bool Keys[NUMBER_OF_KEYS];
 
 private:
 	uint16_t _stack[STACK_CAPACITY];

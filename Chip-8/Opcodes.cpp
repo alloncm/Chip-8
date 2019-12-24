@@ -217,6 +217,24 @@ void DrawSprite(Chip8Cpu& cpu, uint8_t xRegisterIndex, uint8_t yRegisterIndex, u
 	cpu.FlagRegister = flliped;
 }
 
+void SkipIfKeyInRegisterPressed(Chip8Cpu& cpu, uint8_t registerIndex)
+{
+	CheckForValidRegister(cpu, registerIndex);
+	uint8_t keyValue = cpu.GPRegisters[registerIndex];
+	CheckForValid4BitValue(keyValue);
+	
+	SkipIfTrue(cpu, cpu.Keys[keyValue]);
+}
+
+void SkipIfKeyInRegisterNotPressed(Chip8Cpu& cpu, uint8_t registerIndex)
+{
+	CheckForValidRegister(cpu, registerIndex);
+	uint8_t keyValue = cpu.GPRegisters[registerIndex];
+	CheckForValid4BitValue(keyValue);
+
+	SkipIfTrue(cpu, !cpu.Keys[keyValue]);
+}
+
 static void CheckValidAddress(const Chip8Cpu& cpu, uint16_t address)
 {
 	if (address > cpu.MEMORY_SIZE)
@@ -244,4 +262,12 @@ static void SkipIfTrue(Chip8Cpu& cpu, bool condition)
 static bool CheckFor8BitCarry(uint16_t value)
 {
 	return value > UINT8_MAX || value < 0;
+}
+
+static void CheckForValid4BitValue(uint8_t value)
+{
+	if (value > 0xF)
+	{
+		throw std::exception("value is bigger than 0xF" + value);
+	}
 }
