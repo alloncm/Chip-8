@@ -10,6 +10,7 @@ public:
 	static constexpr unsigned int SCREEN_WIDTH = 64;
 	static constexpr unsigned int SCREEN_HIGHT = 32;
 	static constexpr unsigned int STACK_CAPACITY = 24;
+	static constexpr unsigned int SPRITE_WIDTH = 8;
 
 	uint8_t GPRegisters[NUMBER_OF_REGISTERS];
 	uint16_t AddressRegister;

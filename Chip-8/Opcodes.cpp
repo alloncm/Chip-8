@@ -1,27 +1,30 @@
 #include"Opcodes.h"
 #include<cstring>
+#include<cstdlib>
+#include<ctime>
 #include<string>
 #include<exception>
+#include<bitset>
 
-void ClearScreen(Chip8Cpu cpu)
+void ClearScreen(Chip8Cpu& cpu)
 {
 	std::memset(cpu.ScreenBuffer, 0, cpu.SCREEN_HIGHT * cpu.SCREEN_WIDTH);
 }
 
-void ReturnFronSubroutine(Chip8Cpu cpu)
+void ReturnFronSubroutine(Chip8Cpu& cpu)
 {
 	uint16_t address = cpu.Pop();
 	cpu.ProgramCounter = address;
 }
 
-void Jump(Chip8Cpu cpu, uint16_t address)
+void Jump(Chip8Cpu& cpu, uint16_t address)
 {
 	CheckValidAddress(cpu, address);
 
 	cpu.ProgramCounter = address;
 }
 
-void CallSubRoutine(Chip8Cpu cpu, uint16_t address)
+void CallSubRoutine(Chip8Cpu& cpu, uint16_t address)
 {
 	CheckValidAddress(cpu, address);
 
@@ -29,21 +32,21 @@ void CallSubRoutine(Chip8Cpu cpu, uint16_t address)
 	cpu.ProgramCounter = address;
 }
 
-void SkipIfRegisterEqualValue(Chip8Cpu cpu, uint8_t registerIndex, uint8_t value)
+void SkipIfRegisterEqualValue(Chip8Cpu& cpu, uint8_t registerIndex, uint8_t value)
 {
 	CheckForValidRegister(cpu, registerIndex);
 
 	SkipIfTrue(cpu, cpu.GPRegisters[registerIndex] == value);
 }
 
-void SkipIfRegisterNotEqualValue(Chip8Cpu cpu, uint8_t registerIndex, uint8_t value)
+void SkipIfRegisterNotEqualValue(Chip8Cpu& cpu, uint8_t registerIndex, uint8_t value)
 {
 	CheckForValidRegister(cpu, registerIndex);
 
 	SkipIfTrue(cpu, cpu.GPRegisters[registerIndex] != value);
 }
 
-void SkipIfRegisterEqualRegister(Chip8Cpu cpu, uint8_t registerXIndex, uint8_t registerYIndex)
+void SkipIfRegisterEqualRegister(Chip8Cpu& cpu, uint8_t registerXIndex, uint8_t registerYIndex)
 {
 	CheckForValidRegister(cpu, registerXIndex);
 	CheckForValidRegister(cpu, registerYIndex);
@@ -51,19 +54,19 @@ void SkipIfRegisterEqualRegister(Chip8Cpu cpu, uint8_t registerXIndex, uint8_t r
 	SkipIfTrue(cpu, cpu.GPRegisters[registerXIndex] == cpu.GPRegisters[registerYIndex]);
 }
 
-void SetRegisterByValue(Chip8Cpu cpu, uint8_t registerIndex, uint8_t value)
+void SetRegisterByValue(Chip8Cpu& cpu, uint8_t registerIndex, uint8_t value)
 {
 	CheckForValidRegister(cpu, registerIndex);
 	cpu.GPRegisters[registerIndex] = value;
 }
 
-void AddValueToRegisterWithoutCarry(Chip8Cpu cpu, uint8_t registerIndex, uint8_t value)
+void AddValueToRegisterWithoutCarry(Chip8Cpu& cpu, uint8_t registerIndex, uint8_t value)
 {
 	CheckForValidRegister(cpu, registerIndex);
 	cpu.GPRegisters[registerIndex] += value;
 }
 
-void AssignRegisterToRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
+void AssignRegisterToRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
 {
 	CheckForValidRegister(cpu, destRegisterIndex);
 	CheckForValidRegister(cpu, sourceRegisterIndedx);
@@ -71,7 +74,7 @@ void AssignRegisterToRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, uint8_t s
 	cpu.GPRegisters[destRegisterIndex] = cpu.GPRegisters[sourceRegisterIndedx];
 }
 
-void SetsRegisterToRegisterORRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
+void SetsRegisterToRegisterORRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
 {
 	CheckForValidRegister(cpu, destRegisterIndex);
 	CheckForValidRegister(cpu, sourceRegisterIndedx);
@@ -79,7 +82,7 @@ void SetsRegisterToRegisterORRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, u
 	cpu.GPRegisters[destRegisterIndex] |= cpu.GPRegisters[sourceRegisterIndedx];
 }
 
-void SetsRegisterToRegisterANDRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
+void SetsRegisterToRegisterANDRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
 {
 	CheckForValidRegister(cpu, destRegisterIndex);
 	CheckForValidRegister(cpu, sourceRegisterIndedx);
@@ -87,7 +90,7 @@ void SetsRegisterToRegisterANDRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, 
 	cpu.GPRegisters[destRegisterIndex] &= cpu.GPRegisters[sourceRegisterIndedx];
 }
 
-void SetsRegisterToRegisterXORRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
+void SetsRegisterToRegisterXORRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
 {
 	CheckForValidRegister(cpu, destRegisterIndex);
 	CheckForValidRegister(cpu, sourceRegisterIndedx);
@@ -95,7 +98,7 @@ void SetsRegisterToRegisterXORRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, 
 	cpu.GPRegisters[destRegisterIndex] ^= cpu.GPRegisters[sourceRegisterIndedx];
 }
 
-void AddRegisterToRegisterWithCarry(Chip8Cpu cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
+void AddRegisterToRegisterWithCarry(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
 {
 	CheckForValidRegister(cpu, destRegisterIndex);
 	CheckForValidRegister(cpu, sourceRegisterIndedx);
@@ -107,7 +110,7 @@ void AddRegisterToRegisterWithCarry(Chip8Cpu cpu, uint8_t destRegisterIndex, uin
 	cpu.FlagRegister = CheckFor8BitCarry(tempReg);
 }
 
-void SubtractRegisterFromRegisterWithCarry(Chip8Cpu cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
+void SubtractRegisterFromRegisterWithCarry(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx)
 {
 	CheckForValidRegister(cpu, destRegisterIndex);
 	CheckForValidRegister(cpu, sourceRegisterIndedx);
@@ -119,7 +122,7 @@ void SubtractRegisterFromRegisterWithCarry(Chip8Cpu cpu, uint8_t destRegisterInd
 	cpu.FlagRegister = !CheckFor8BitCarry(tempReg);
 }
 
-void ShiftRightBy1RegisterToRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, uint8_t outputRegisterIndedx)
+void ShiftRightBy1RegisterToRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t outputRegisterIndedx)
 {
 	CheckForValidRegister(cpu, destRegisterIndex);
 	CheckForValidRegister(cpu, outputRegisterIndedx);
@@ -128,7 +131,7 @@ void ShiftRightBy1RegisterToRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, ui
 	cpu.GPRegisters[destRegisterIndex] >>= 1;
 }
 
-void AssignRegisterXRegisterYMinusRegisterX(Chip8Cpu cpu, uint8_t xRegisterIndex, uint8_t yRegisterIndex)
+void AssignRegisterXRegisterYMinusRegisterX(Chip8Cpu& cpu, uint8_t xRegisterIndex, uint8_t yRegisterIndex)
 {
 	CheckForValidRegister(cpu, xRegisterIndex);
 	CheckForValidRegister(cpu, yRegisterIndex);
@@ -141,7 +144,7 @@ void AssignRegisterXRegisterYMinusRegisterX(Chip8Cpu cpu, uint8_t xRegisterIndex
 	cpu.FlagRegister = CheckFor8BitCarry(temp);
 }
 
-void ShiftLeftBy1RegisterToRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, uint8_t outputRegisterIndedx)
+void ShiftLeftBy1RegisterToRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t outputRegisterIndedx)
 {
 	CheckForValidRegister(cpu, destRegisterIndex);
 	CheckForValidRegister(cpu, outputRegisterIndedx);
@@ -150,7 +153,7 @@ void ShiftLeftBy1RegisterToRegister(Chip8Cpu cpu, uint8_t destRegisterIndex, uin
 	cpu.GPRegisters[destRegisterIndex] <<= 1;
 }
 
-void SkipIfRegisterNotEqualRegister(Chip8Cpu cpu, uint8_t registerXIndex, uint8_t registerYIndex)
+void SkipIfRegisterNotEqualRegister(Chip8Cpu& cpu, uint8_t registerXIndex, uint8_t registerYIndex)
 {
 	CheckForValidRegister(cpu, registerXIndex);
 	CheckForValidRegister(cpu, registerYIndex);
@@ -158,14 +161,14 @@ void SkipIfRegisterNotEqualRegister(Chip8Cpu cpu, uint8_t registerXIndex, uint8_
 	SkipIfTrue(cpu, cpu.GPRegisters[registerXIndex] != cpu.GPRegisters[registerYIndex]);
 }
 
-void SetAddressRegister(Chip8Cpu cpu, uint16_t value)
+void SetAddressRegister(Chip8Cpu& cpu, uint16_t value)
 {
 	CheckValidAddress(cpu, value);
 
 	cpu.AddressRegister = value;
 }
 
-void JumpToFirstRegisterPlusValue(Chip8Cpu cpu, uint16_t value)
+void JumpToFirstRegisterPlusValue(Chip8Cpu& cpu, uint16_t value)
 {
 	uint16_t address = cpu.GPRegisters[0] + value;
 	CheckValidAddress(cpu, address);
@@ -173,7 +176,48 @@ void JumpToFirstRegisterPlusValue(Chip8Cpu cpu, uint16_t value)
 	cpu.ProgramCounter = address;
 }
 
-static void CheckValidAddress(Chip8Cpu cpu, uint16_t address)
+void AssignRegisterRandANDValue(Chip8Cpu& cpu, uint8_t registerIndex, uint8_t value)
+{
+	CheckForValidRegister(cpu, registerIndex);
+
+	srand(time(NULL));
+	uint8_t randomNumber = rand() % UINT8_MAX;
+	cpu.GPRegisters[registerIndex] = randomNumber & value;
+}
+
+void DrawSprite(Chip8Cpu& cpu, uint8_t xRegisterIndex, uint8_t yRegisterIndex, uint8_t height)
+{
+	CheckForValidRegister(cpu, xRegisterIndex);
+	CheckForValidRegister(cpu, yRegisterIndex);
+	if (height > 0xF)
+	{
+		throw std::exception("height is bigger than 0xF" + height);
+	}
+
+
+	bool flliped = false;
+	uint16_t addressTemp = cpu.AddressRegister;
+	for (int i = cpu.GPRegisters[yRegisterIndex]; i < height; i++)
+	{
+		uint8_t v = cpu.Memory[addressTemp];
+		std::bitset<sizeof(uint8_t)> bits(v);
+		for (int j = cpu.GPRegisters[xRegisterIndex]; i < cpu.SPRITE_WIDTH; i++)
+		{
+			if (cpu.ScreenBuffer[cpu.SCREEN_WIDTH * i + j] != bits[i])
+			{
+				cpu.ScreenBuffer[cpu.SCREEN_WIDTH * i + j] = bits[i];
+				if (!cpu.ScreenBuffer[cpu.SCREEN_WIDTH * i + j])
+				{
+					flliped = true;
+				}
+			}
+		}
+	}
+
+	cpu.FlagRegister = flliped;
+}
+
+static void CheckValidAddress(const Chip8Cpu& cpu, uint16_t address)
 {
 	if (address > cpu.MEMORY_SIZE)
 	{
@@ -181,7 +225,7 @@ static void CheckValidAddress(Chip8Cpu cpu, uint16_t address)
 	}
 }
 
-static void CheckForValidRegister(Chip8Cpu cpu, uint8_t registerIndex)
+static void CheckForValidRegister(const Chip8Cpu& cpu, uint8_t registerIndex)
 {
 	if (registerIndex >= cpu.NUMBER_OF_REGISTERS)
 	{
@@ -189,7 +233,7 @@ static void CheckForValidRegister(Chip8Cpu cpu, uint8_t registerIndex)
 	}
 }
 
-static void SkipIfTrue(Chip8Cpu cpu, bool condition)
+static void SkipIfTrue(Chip8Cpu& cpu, bool condition)
 {
 	if (condition)
 	{
