@@ -13,19 +13,32 @@ public:
 	static constexpr unsigned int SPRITE_WIDTH = 8;
 	static constexpr unsigned int NUMBER_OF_KEYS = 16;
 
-	uint8_t GPRegisters[NUMBER_OF_REGISTERS];
-	uint16_t AddressRegister;
-	uint16_t ProgramCounter;
-	bool FlagRegister;
-	uint8_t Memory[MEMORY_SIZE];
-	bool ScreenBuffer[SCREEN_HIGHT * SCREEN_WIDTH];
-	bool Keys[NUMBER_OF_KEYS];
+	uint8_t GPRegisters[NUMBER_OF_REGISTERS] = { 0 };
+	uint16_t AddressRegister = 0;
+	uint16_t ProgramCounter = 0;
+	bool FlagRegister = false;
+	uint8_t Memory[MEMORY_SIZE] = { 0 };
+	bool ScreenBuffer[SCREEN_HIGHT * SCREEN_WIDTH] = { 0 };
+	bool Keys[NUMBER_OF_KEYS] = { 0 };
+	uint8_t DelayTimer = 0;
+	uint8_t SoundTimer = 0;
 
 private:
-	uint16_t _stack[STACK_CAPACITY];
+	uint16_t _stack[STACK_CAPACITY] = { 0 };
 	unsigned int _stackCurrentSize = 0;
+	bool _isBlocking = false;
 
 public:
+
+	void Block()
+	{
+		_isBlocking = true;
+	}
+
+	void Release()
+	{
+		_isBlocking = false;
+	}
 
 	uint16_t Pop()
 	{

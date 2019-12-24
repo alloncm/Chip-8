@@ -75,3 +75,9 @@ void SkipIfKeyInRegisterPressed(Chip8Cpu& cpu, uint8_t registerIndex);
 
 //EXA1
 void SkipIfKeyInRegisterNotPressed(Chip8Cpu& cpu, uint8_t registerIndex);
+
+//FX07
+void SetRegisterToDelayTimer(Chip8Cpu& cpu, uint8_t registerIndex);
+
+//FX0A
+void BlockKeyIsPressedAndAssignItToRegister(Chip8Cpu& cpu, uint8_t registerIndex);

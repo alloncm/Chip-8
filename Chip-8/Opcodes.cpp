@@ -235,6 +235,34 @@ void SkipIfKeyInRegisterNotPressed(Chip8Cpu& cpu, uint8_t registerIndex)
 	SkipIfTrue(cpu, !cpu.Keys[keyValue]);
 }
 
+void SetRegisterToDelayTimer(Chip8Cpu& cpu, uint8_t registerIndex)
+{
+	CheckForValidRegister(cpu, registerIndex);
+
+	cpu.GPRegisters[registerIndex] = cpu.DelayTimer;
+}
+
+void BlockKeyIsPressedAndAssignItToRegister(Chip8Cpu& cpu, uint8_t registerIndex)
+{
+	CheckForValidRegister(cpu, registerIndex);
+	cpu.Block();
+	bool found = false;
+	uint8_t i = 0;
+	while ( i < cpu.NUMBER_OF_KEYS && !found)
+	{
+		if (cpu.Keys[i])
+		{
+			found = true;
+		}
+		else
+		{
+			i++;
+		}
+	}
+
+	cpu.GPRegisters[registerIndex] = i;
+}
+
 static void CheckValidAddress(const Chip8Cpu& cpu, uint16_t address)
 {
 	if (address > cpu.MEMORY_SIZE)
