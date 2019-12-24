@@ -263,6 +263,29 @@ void BlockKeyIsPressedAndAssignItToRegister(Chip8Cpu& cpu, uint8_t registerIndex
 	cpu.GPRegisters[registerIndex] = i;
 }
 
+void SetDelayTimerToRegister(Chip8Cpu& cpu, uint8_t registerIndex)
+{
+	CheckForValidRegister(cpu, registerIndex);
+
+	cpu.DelayTimer = cpu.GPRegisters[registerIndex];
+}
+
+void SetSoundTimerToRegister(Chip8Cpu& cpu, uint8_t registerIndex)
+{
+	CheckForValidRegister(cpu, registerIndex);
+
+	cpu.SoundTimer = cpu.GPRegisters[registerIndex];
+}
+
+void AddRegisterToAdressRegister(Chip8Cpu& cpu, uint8_t registerIndex)
+{
+	CheckForValidRegister(cpu, registerIndex);
+
+	cpu.AddressRegister += cpu.GPRegisters[registerIndex];
+	cpu.FlagRegister = cpu.AddressRegister > cpu.MEMORY_SIZE;
+}
+
+
 static void CheckValidAddress(const Chip8Cpu& cpu, uint16_t address)
 {
 	if (address > cpu.MEMORY_SIZE)

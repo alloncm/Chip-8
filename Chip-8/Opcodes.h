@@ -81,3 +81,12 @@ void SetRegisterToDelayTimer(Chip8Cpu& cpu, uint8_t registerIndex);
 
 //FX0A
 void BlockKeyIsPressedAndAssignItToRegister(Chip8Cpu& cpu, uint8_t registerIndex);
+
+//FX15
+void SetDelayTimerToRegister(Chip8Cpu& cpu, uint8_t registerIndex);
+
+//FX18
+void SetSoundTimerToRegister(Chip8Cpu& cpu, uint8_t registerIndex);
+
+//FX1E
+void AddRegisterToAdressRegister(Chip8Cpu& cpu, uint8_t registerIndex);
