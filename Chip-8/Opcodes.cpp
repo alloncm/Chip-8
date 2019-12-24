@@ -285,6 +285,45 @@ void AddRegisterToAdressRegister(Chip8Cpu& cpu, uint8_t registerIndex)
 	cpu.FlagRegister = cpu.AddressRegister > cpu.MEMORY_SIZE;
 }
 
+void SetsAddressRegisterToFontSpriteAtRegister(Chip8Cpu& cpu, uint8_t registerIndex)
+{
+	CheckForValidRegister(cpu, registerIndex);
+
+	cpu.AddressRegister = cpu.GetFontSpriteAddress(cpu.GPRegisters[registerIndex]);
+}
+
+void StoreASCIIInMemory(Chip8Cpu& cpu, uint8_t registerIndex)
+{
+	CheckForValidRegister(cpu, registerIndex);
+
+	uint8_t vx = cpu.GPRegisters[registerIndex];
+	cpu.Memory[cpu.AddressRegister] = vx / 100;
+	vx %= 100;
+	cpu.Memory[cpu.AddressRegister+1] = vx / 10;
+	vx %= 10;
+	cpu.Memory[cpu.AddressRegister+2] = vx;
+}
+
+void StoreRegistersUntillXInMemory(Chip8Cpu& cpu, uint8_t x)
+{
+	CheckForValidRegister(cpu, x);
+
+	for (int i = 0; i < x; i++)
+	{
+		cpu.Memory[cpu.AddressRegister + i] = cpu.GPRegisters[i];
+	}
+}
+
+void LoadRegistersFromMemoryUntillX(Chip8Cpu& cpu, uint8_t x)
+{
+	CheckForValidRegister(cpu, x);
+
+	for (int i = 0; i < x; i++)
+	{
+		cpu.GPRegisters[i] = cpu.Memory[cpu.AddressRegister + i];
+	}
+}
+
 
 static void CheckValidAddress(const Chip8Cpu& cpu, uint16_t address)
 {

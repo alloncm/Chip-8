@@ -90,3 +90,15 @@ void SetSoundTimerToRegister(Chip8Cpu& cpu, uint8_t registerIndex);
 
 //FX1E
 void AddRegisterToAdressRegister(Chip8Cpu& cpu, uint8_t registerIndex);
+
+//FX29
+void SetsAddressRegisterToFontSpriteAtRegister(Chip8Cpu& cpu, uint8_t registerIndex);
+
+//FX33
+void StoreASCIIInMemory(Chip8Cpu& cpu, uint8_t registerIndex);
+
+//FX55
+void StoreRegistersUntillXInMemory(Chip8Cpu& cpu, uint8_t x);
+
+//FX65
+void LoadRegistersFromMemoryUntillX(Chip8Cpu& cpu, uint8_t x);

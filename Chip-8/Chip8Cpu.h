@@ -27,8 +27,16 @@ private:
 	uint16_t _stack[STACK_CAPACITY] = { 0 };
 	unsigned int _stackCurrentSize = 0;
 	bool _isBlocking = false;
+	uint16_t _fontsSpriteAddresses[NUMBER_OF_KEYS];
 
 public:
+	Chip8Cpu(uint16_t fontsSpriteAddresses[NUMBER_OF_KEYS])
+	{
+		for (int i = 0; i < NUMBER_OF_KEYS; i++)
+		{
+			_fontsSpriteAddresses[i] = fontsSpriteAddresses[i];
+		}
+	}
 
 	void Block()
 	{
@@ -65,4 +73,15 @@ public:
 		}
 	}
 
+	uint16_t GetFontSpriteAddress(uint8_t key)
+	{
+		if (key < NUMBER_OF_KEYS)
+		{
+			return _fontsSpriteAddresses[key];
+		}
+		else
+		{
+			throw std::exception("no sprite for this key exist");
+		}
+	}
 };

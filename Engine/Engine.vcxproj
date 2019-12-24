@@ -224,6 +224,11 @@
   <ItemGroup>
     <Image Include="Chili.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chip-8\Chip-8.vcxproj">
+      <Project>{7e3cac79-d194-418b-98fd-d8b0db2186fa}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
