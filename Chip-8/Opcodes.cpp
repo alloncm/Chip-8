@@ -127,7 +127,7 @@ void ShiftRightBy1RegisterToRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, u
 	CheckForValidRegister(cpu, destRegisterIndex);
 	CheckForValidRegister(cpu, outputRegisterIndedx);
 
-	cpu.GPRegisters[outputRegisterIndedx] = cpu.GPRegisters[destRegisterIndex] >> 1;
+	cpu.GPRegisters[outputRegisterIndedx] = cpu.GPRegisters[destRegisterIndex] | 0b00000001;
 	cpu.GPRegisters[destRegisterIndex] >>= 1;
 }
 
@@ -149,7 +149,7 @@ void ShiftLeftBy1RegisterToRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, ui
 	CheckForValidRegister(cpu, destRegisterIndex);
 	CheckForValidRegister(cpu, outputRegisterIndedx);
 
-	cpu.GPRegisters[outputRegisterIndedx] = cpu.GPRegisters[destRegisterIndex] << 1;
+	cpu.GPRegisters[outputRegisterIndedx] = cpu.GPRegisters[destRegisterIndex] | 0b10000000;
 	cpu.GPRegisters[destRegisterIndex] <<= 1;
 }
 
