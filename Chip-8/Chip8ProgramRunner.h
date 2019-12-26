@@ -8,6 +8,7 @@ public:
 	Chip8ProgramRunner(Chip8Cpu& cpu, OpcodeRunnerResolver opcodeRunnerResolver);
 	void LoadProgram(const std::string& programName);
 	void ChipCycle();
+	std::vector<std::vector<bool>> GetScreenBuffer();
 private:
 	Chip8Cpu& _cpu;
 	OpcodeRunnerResolver& _opcodeRunnerResolver;

@@ -23,11 +23,12 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
+#include"..\Chip-8\Chip8ProgramRunner.h"
 
 class Game
 {
 public:
-	Game( class MainWindow& wnd );
+	Game( class MainWindow& wnd , Chip8ProgramRunner chip8ProgramRunner);
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
@@ -42,5 +43,8 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	Chip8ProgramRunner _chip8ProgramRunner;
+
+	std::string programName = "PONG";
 	/********************************/
 };

@@ -1,5 +1,5 @@
-/****************************************************************************************** 
- *	Chili DirectX Framework Version 16.07.20											  *	
+/******************************************************************************************
+ *	Chili DirectX Framework Version 16.07.20											  *
  *	Game.cpp																			  *
  *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
  *																						  *
@@ -21,16 +21,18 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd, Chip8ProgramRunner chip8ProgramRunner)
 	:
-	wnd( wnd ),
-	gfx( wnd )
+	wnd(wnd),
+	gfx(wnd),
+	_chip8ProgramRunner(chip8ProgramRunner)
 {
+	_chip8ProgramRunner.LoadProgram(programName);
 }
 
 void Game::Go()
 {
-	gfx.BeginFrame();	
+	gfx.BeginFrame();
 	UpdateModel();
 	ComposeFrame();
 	gfx.EndFrame();
@@ -38,8 +40,17 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	_chip8ProgramRunner.ChipCycle();
 }
 
 void Game::ComposeFrame()
 {
+	auto screenBuffer = _chip8ProgramRunner.GetScreenBuffer();
+	for (size_t i = 0; i < screenBuffer.size(); i++)
+	{
+		for (size_t j = 0; j < screenBuffer[i].size(); j++)
+		{
+			gfx.PutPixel(j, i, Colors::White);
+		}
+	}
 }
