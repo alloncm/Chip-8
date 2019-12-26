@@ -6,6 +6,44 @@
 #include<exception>
 #include<bitset>
 
+static void CheckValidAddress(const Chip8Cpu& cpu, uint16_t address)
+{
+	if (address > cpu.MEMORY_SIZE)
+	{
+		throw std::exception("Memory out of bounds address at " + address);
+	}
+}
+
+static void CheckForValidRegister(const Chip8Cpu& cpu, uint8_t registerIndex)
+{
+	if (registerIndex >= cpu.NUMBER_OF_REGISTERS)
+	{
+		throw std::exception("Register is out of bounds " + registerIndex);
+	}
+}
+
+static void SkipIfTrue(Chip8Cpu& cpu, bool condition)
+{
+	if (condition)
+	{
+		cpu.ProgramCounter += sizeof(uint16_t);
+	}
+}
+
+static bool CheckFor8BitCarry(uint16_t value)
+{
+	return value > UINT8_MAX || value < 0;
+}
+
+static void CheckForValid4BitValue(uint8_t value)
+{
+	if (value > 0xF)
+	{
+		throw std::exception("value is bigger than 0xF" + value);
+	}
+}
+
+
 void ClearScreen(Chip8Cpu& cpu)
 {
 	std::memset(cpu.ScreenBuffer, 0, cpu.SCREEN_HIGHT * cpu.SCREEN_WIDTH);
@@ -325,39 +363,5 @@ void LoadRegistersFromMemoryUntillX(Chip8Cpu& cpu, uint8_t x)
 }
 
 
-static void CheckValidAddress(const Chip8Cpu& cpu, uint16_t address)
-{
-	if (address > cpu.MEMORY_SIZE)
-	{
-		throw std::exception("Memory out of bounds address at " + address);
-	}
-}
 
-static void CheckForValidRegister(const Chip8Cpu& cpu, uint8_t registerIndex)
-{
-	if (registerIndex >= cpu.NUMBER_OF_REGISTERS)
-	{
-		throw std::exception("Register is out of bounds " + registerIndex);
-	}
-}
 
-static void SkipIfTrue(Chip8Cpu& cpu, bool condition)
-{
-	if (condition)
-	{
-		cpu.ProgramCounter += sizeof(uint16_t);
-	}
-}
-
-static bool CheckFor8BitCarry(uint16_t value)
-{
-	return value > UINT8_MAX || value < 0;
-}
-
-static void CheckForValid4BitValue(uint8_t value)
-{
-	if (value > 0xF)
-	{
-		throw std::exception("value is bigger than 0xF" + value);
-	}
-}

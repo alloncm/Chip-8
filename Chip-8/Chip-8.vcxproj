@@ -19,11 +19,28 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="OpcodeRunner12BitValue.h" />
     <ClInclude Include="Chip8Cpu.h" />
+    <ClInclude Include="OpcodeRunner.h" />
+    <ClInclude Include="OpcodeRunner4Bit8BitValues.h" />
+    <ClInclude Include="OpcodeRunner4BitValue.h" />
+    <ClInclude Include="OpcodeRunnerNoValues.h" />
+    <ClInclude Include="OpcodeRunnerResolver.h" />
+    <ClInclude Include="OpcodeRunnerThree4BitValues.h" />
+    <ClInclude Include="OpcodeRunnerTwo4BitValues.h" />
     <ClInclude Include="Opcodes.h" />
+    <ClInclude Include="OpcodeTypeParser.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bit12OpcodeRunner.cpp" />
+    <ClCompile Include="OpcodeRunner4Bit8BitValues.cpp" />
+    <ClCompile Include="OpcodeRunner4BitValue.cpp" />
+    <ClCompile Include="OpcodeRunnerNoValues.cpp" />
+    <ClCompile Include="OpcodeRunnerResolver.cpp" />
+    <ClCompile Include="OpcodeRunnerThree4BitValues.cpp" />
+    <ClCompile Include="OpcodeRunnerTwo4BitValues.cpp" />
     <ClCompile Include="Opcodes.cpp" />
+    <ClCompile Include="OpcodeTypeParser.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -91,12 +108,14 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile />
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -105,12 +124,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile />
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

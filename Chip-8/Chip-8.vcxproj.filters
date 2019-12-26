@@ -21,9 +21,60 @@
     <ClInclude Include="Opcodes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OpcodeTypeParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpcodeRunner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpcodeRunner12BitValue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpcodeRunner4Bit8BitValues.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpcodeRunnerTwo4BitValues.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpcodeRunnerThree4BitValues.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpcodeRunnerNoValues.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpcodeRunner4BitValue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpcodeRunnerResolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Opcodes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpcodeTypeParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bit12OpcodeRunner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpcodeRunner4Bit8BitValues.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpcodeRunnerTwo4BitValues.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpcodeRunnerThree4BitValues.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpcodeRunnerNoValues.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpcodeRunner4BitValue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpcodeRunnerResolver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
