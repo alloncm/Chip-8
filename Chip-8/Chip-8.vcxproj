@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Chip8ProgramRunner.h" />
     <ClInclude Include="OpcodeRunner12BitValue.h" />
     <ClInclude Include="Chip8Cpu.h" />
     <ClInclude Include="OpcodeRunner.h" />
@@ -33,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bit12OpcodeRunner.cpp" />
+    <ClCompile Include="Chip8ProgramRunner.cpp" />
     <ClCompile Include="OpcodeRunner4Bit8BitValues.cpp" />
     <ClCompile Include="OpcodeRunner4BitValue.cpp" />
     <ClCompile Include="OpcodeRunnerNoValues.cpp" />

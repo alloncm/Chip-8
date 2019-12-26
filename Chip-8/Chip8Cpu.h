@@ -12,6 +12,7 @@ public:
 	static constexpr unsigned int STACK_CAPACITY = 24;
 	static constexpr unsigned int SPRITE_WIDTH = 8;
 	static constexpr unsigned int NUMBER_OF_KEYS = 16;
+	static constexpr unsigned int PROGRAM_START = 0x200;
 
 	uint8_t GPRegisters[NUMBER_OF_REGISTERS] = { 0 };
 	uint16_t AddressRegister = 0;

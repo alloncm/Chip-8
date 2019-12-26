@@ -48,6 +48,9 @@
     <ClInclude Include="OpcodeRunnerResolver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Chip8ProgramRunner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Opcodes.cpp">
@@ -75,6 +78,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OpcodeRunnerResolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip8ProgramRunner.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
