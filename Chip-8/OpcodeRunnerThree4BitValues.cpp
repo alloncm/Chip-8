@@ -8,8 +8,8 @@ OpcodeRunnerThree4BitValues::OpcodeRunnerThree4BitValues(Chip8Cpu & cpu, void(*o
 
 void OpcodeRunnerThree4BitValues::operator()(uint16_t opcode)
 {
-	uint8_t firstValue = opcode & 0x0F00;
-	uint8_t secondValue = opcode & 0x00F0;
+	uint8_t firstValue = (opcode & 0x0F00) / 0x100;
+	uint8_t secondValue = (opcode & 0x00F0) / 0x10;
 	uint8_t thirdValue = opcode & 0x000F;
 
 	_opcodeFunc(Cpu, firstValue, secondValue, thirdValue);

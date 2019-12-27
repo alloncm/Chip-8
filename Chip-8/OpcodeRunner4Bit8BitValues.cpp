@@ -8,7 +8,7 @@ OpcodeRunner4Bit8BitValues::OpcodeRunner4Bit8BitValues(Chip8Cpu & cpu, void(*opc
 
 void OpcodeRunner4Bit8BitValues::operator()(uint16_t opcode)
 {
-	uint8_t first4BitValue = opcode & 0x0F00;
+	uint8_t first4BitValue = (opcode & 0x0F00)/0x100;
 	uint8_t second8BitValue = opcode & 0x00FF;
 
 	_opcodeFunc(Cpu, first4BitValue, second8BitValue);

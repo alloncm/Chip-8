@@ -238,7 +238,7 @@ void DrawSprite(Chip8Cpu& cpu, uint8_t xRegisterIndex, uint8_t yRegisterIndex, u
 	for (int i = cpu.GPRegisters[yRegisterIndex]; i < height; i++)
 	{
 		uint8_t v = cpu.Memory[addressTemp];
-		std::bitset<sizeof(uint8_t)> bits(v);
+		std::bitset<8> bits(v);
 		for (int j = cpu.GPRegisters[xRegisterIndex]; i < cpu.SPRITE_WIDTH; i++)
 		{
 			if (cpu.ScreenBuffer[cpu.SCREEN_WIDTH * i + j] != bits[i])

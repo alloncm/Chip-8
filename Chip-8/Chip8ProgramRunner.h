@@ -9,6 +9,7 @@ public:
 	void LoadProgram(const std::string& programName);
 	void ChipCycle();
 	std::vector<std::vector<bool>> GetScreenBuffer();
+	void SetInput(std::vector<bool> input);
 private:
 	Chip8Cpu& _cpu;
 	OpcodeRunnerResolver& _opcodeRunnerResolver;

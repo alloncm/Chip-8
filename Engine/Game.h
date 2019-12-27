@@ -37,6 +37,7 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
+	std::vector<bool> GetInput();
 	/********************************/
 private:
 	MainWindow& wnd;

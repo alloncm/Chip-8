@@ -39,6 +39,11 @@ public:
 		}
 	}
 
+	bool IsBlocking()const
+	{
+		return _isBlocking;
+	}
+
 	void Block()
 	{
 		_isBlocking = true;

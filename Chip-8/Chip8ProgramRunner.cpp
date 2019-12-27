@@ -25,8 +25,14 @@ void Chip8ProgramRunner::LoadProgram(const std::string & programName)
 
 void Chip8ProgramRunner::ChipCycle()
 {
-	_opcodeRunnerResolver(_cpu.ProgramCounter);
-	_cpu.ProgramCounter+=sizeof(uint16_t);
+	if (!_cpu.IsBlocking())
+	{
+		uint16_t opcode = _cpu.Memory[_cpu.ProgramCounter];
+		opcode <<= 8;
+		opcode += _cpu.Memory[_cpu.ProgramCounter + 1];
+		_opcodeRunnerResolver(opcode);
+		_cpu.ProgramCounter += sizeof(uint16_t);
+	}
 	if (_cpu.DelayTimer > 0)
 	{
 		_cpu.DelayTimer--;
@@ -42,7 +48,7 @@ std::vector<std::vector<bool>> Chip8ProgramRunner::GetScreenBuffer()
 	std::vector<std::vector<bool>> output(_cpu.SCREEN_HIGHT);
 	for (int i = 0; i < _cpu.SCREEN_HIGHT; i++)
 	{
-		output.emplace_back(std::vector<bool>(_cpu.SCREEN_WIDTH));
+		output[i].resize(_cpu.SCREEN_WIDTH);
 		for (int j = 0; j < _cpu.SCREEN_WIDTH; j++)
 		{
 			output[i][j] = _cpu.ScreenBuffer[i*_cpu.SCREEN_WIDTH+j];
@@ -50,4 +56,9 @@ std::vector<std::vector<bool>> Chip8ProgramRunner::GetScreenBuffer()
 	}
 
 	return output;
+}
+
+void Chip8ProgramRunner::SetInput(std::vector<bool> input)
+{
+	memcpy(_cpu.Keys, input.begin()._Myptr, _cpu.NUMBER_OF_KEYS);
 }

@@ -41,16 +41,89 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	_chip8ProgramRunner.ChipCycle();
+	_chip8ProgramRunner.SetInput(GetInput());
 }
+
+std::vector<bool> Game::GetInput()
+{
+	std::vector<bool> input(16);
+	char key = wnd.kbd.ReadChar();
+	switch (key)
+	{
+	case '0':
+		input[0] = true;
+		break;
+	case '1':
+		input[1] = true;
+		break;
+	case '2':
+		input[2] = true;
+		break;
+	case '3':
+		input[3] = true;
+		break;
+	case '4':
+		input[4] = true;
+		break;
+	case '5':
+		input[5] = true;
+		break;
+	case '6':
+		input[6] = true;
+		break;
+	case '7':
+		input[7] = true;
+		break;
+	case '8':
+		input[8] = true;
+		break;
+	case '9':
+		input[9] = true;
+		break;
+	case 'A':
+		input[0xA] = true;
+		break;
+	case 'B':
+		input[0xB] = true;
+		break;
+	case 'C':
+		input[0xC] = true;
+		break;
+	case 'D':
+		input[0xD] = true;
+		break;
+	case 'E':
+		input[0xE] = true;
+		break;
+	case 'F':
+		input[0xF] = true;
+		break;
+	}
+
+	return input;
+}
+
 
 void Game::ComposeFrame()
 {
 	auto screenBuffer = _chip8ProgramRunner.GetScreenBuffer();
-	for (size_t i = 0; i < screenBuffer.size(); i++)
+	for (int i = 0; i < screenBuffer.size(); i++)
 	{
-		for (size_t j = 0; j < screenBuffer[i].size(); j++)
+		for (int j = 0; j < screenBuffer[i].size(); j++)
 		{
-			gfx.PutPixel(j, i, Colors::White);
+			if (screenBuffer[i][j])
+			{
+				const int size = 10;
+				int y = i * size;
+				int x = j * size;
+				for (int xx = x; xx < x + size; xx++)
+				{
+					for (int yy = y; yy < y + size; yy++)
+					{
+						gfx.PutPixel(xx, yy, Colors::White);
+					}
+				}
+			}
 		}
 	}
 }

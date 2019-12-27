@@ -2,5 +2,7 @@
 
 uint8_t OpcodeTypeParser::Parse(uint16_t opcode)const
 {
-	return opcode & 0xF000;
+	uint16_t type = opcode & 0xF000;
+	type /= 0x1000;
+	return type;
 }
