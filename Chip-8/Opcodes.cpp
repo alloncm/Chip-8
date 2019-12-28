@@ -58,7 +58,6 @@ void ReturnFronSubroutine(Chip8Cpu& cpu)
 {
 	uint16_t address = cpu.Pop();
 	cpu.ProgramCounter = address;
-	cpu.Jumped = true;
 }
 
 void Jump(Chip8Cpu& cpu, uint16_t address)
@@ -253,9 +252,9 @@ void DrawSprite(Chip8Cpu& cpu, uint8_t xRegisterIndex, uint8_t yRegisterIndex, u
 		{
 			int x = j + cpu.GPRegisters[xRegisterIndex];
 			int y = i + cpu.GPRegisters[yRegisterIndex];
-			if (cpu.ScreenBuffer[cpu.SCREEN_WIDTH * y + x] != bits[7-j])
+			if (bits[7-j])
 			{
-				cpu.ScreenBuffer[cpu.SCREEN_WIDTH * y + x] = bits[7-j];
+				cpu.ScreenBuffer[cpu.SCREEN_WIDTH * y + x] = !cpu.ScreenBuffer[cpu.SCREEN_WIDTH * y + x];
 				if (!cpu.ScreenBuffer[cpu.SCREEN_WIDTH * y + x])
 				{
 					flliped = true;
