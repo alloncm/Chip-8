@@ -1,6 +1,7 @@
 #include "Chip8ProgramRunner.h"
 #include<fstream>
 #include<Windows.h>
+#include<vector>
 
 Chip8ProgramRunner::Chip8ProgramRunner(Chip8Cpu & cpu, OpcodeRunnerResolver opcodeRunnerResolver)
 	:
@@ -8,7 +9,7 @@ Chip8ProgramRunner::Chip8ProgramRunner(Chip8Cpu & cpu, OpcodeRunnerResolver opco
 	_opcodeRunnerResolver(opcodeRunnerResolver)
 {}
 
-void Chip8ProgramRunner::LoadProgram(const std::string & programName)
+void Chip8ProgramRunner::LoadProgram(const std::wstring & programName)
 {
 	std::ifstream program(programName, std::ios::binary | std::ios::in);
 	unsigned int counter = _cpu.PROGRAM_START;
@@ -31,7 +32,14 @@ void Chip8ProgramRunner::ChipCycle()
 		opcode <<= 8;
 		opcode += _cpu.Memory[_cpu.ProgramCounter + 1];
 		_opcodeRunnerResolver(opcode);
-		_cpu.ProgramCounter += sizeof(uint16_t);
+		if (!_cpu.Jumped)
+		{
+			_cpu.ProgramCounter += sizeof(uint16_t);
+		}
+		else
+		{
+			_cpu.Jumped = false;
+		}
 	}
 	if (_cpu.DelayTimer > 0)
 	{
@@ -60,5 +68,8 @@ std::vector<std::vector<bool>> Chip8ProgramRunner::GetScreenBuffer()
 
 void Chip8ProgramRunner::SetInput(std::vector<bool> input)
 {
-	memcpy(_cpu.Keys, input.begin()._Myptr, _cpu.NUMBER_OF_KEYS);
+	for (int i = 0; i < _cpu.NUMBER_OF_KEYS; i++)
+	{
+		_cpu.Keys[i] = input[i];
+	}
 }

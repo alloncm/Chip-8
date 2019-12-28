@@ -28,7 +28,7 @@
 class Game
 {
 public:
-	Game( class MainWindow& wnd , Chip8ProgramRunner chip8ProgramRunner);
+	Game( class MainWindow& wnd , Chip8ProgramRunner chip8ProgramRunner, std::wstring name);
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
@@ -46,6 +46,6 @@ private:
 	/*  User Variables              */
 	Chip8ProgramRunner _chip8ProgramRunner;
 
-	std::string programName = "PONG";
+	std::wstring programName;
 	/********************************/
 };

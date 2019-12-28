@@ -5,7 +5,7 @@
 class Chip8Cpu
 {
 public:
-	static constexpr unsigned int NUMBER_OF_REGISTERS = 15;
+	static constexpr unsigned int NUMBER_OF_REGISTERS = 16;
 	static constexpr unsigned int MEMORY_SIZE = 4096;
 	static constexpr unsigned int SCREEN_WIDTH = 64;
 	static constexpr unsigned int SCREEN_HIGHT = 32;
@@ -15,15 +15,15 @@ public:
 	static constexpr unsigned int PROGRAM_START = 0x200;
 
 	uint8_t GPRegisters[NUMBER_OF_REGISTERS] = { 0 };
+	uint8_t* RegisterF = nullptr;
 	uint16_t AddressRegister = 0;
 	uint16_t ProgramCounter = 0;
-	bool FlagRegister = false;
 	uint8_t Memory[MEMORY_SIZE] = { 0 };
 	bool ScreenBuffer[SCREEN_HIGHT * SCREEN_WIDTH] = { 0 };
 	bool Keys[NUMBER_OF_KEYS] = { 0 };
 	uint8_t DelayTimer = 0;
 	uint8_t SoundTimer = 0;
-
+	bool Jumped = false;
 private:
 	uint16_t _stack[STACK_CAPACITY] = { 0 };
 	unsigned int _stackCurrentSize = 0;
@@ -37,6 +37,8 @@ public:
 		{
 			_fontsSpriteAddresses[i] = fontsSpriteAddresses[i];
 		}
+
+		RegisterF = GPRegisters + NUMBER_OF_REGISTERS-1;
 	}
 
 	bool IsBlocking()const
@@ -60,7 +62,7 @@ public:
 		{
 			_stackCurrentSize--;
 
-			return _stack[0];
+			return _stack[_stackCurrentSize];
 		}
 
 		throw std::exception("Stack current size is 0 or below");

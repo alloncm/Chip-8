@@ -21,11 +21,12 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game(MainWindow& wnd, Chip8ProgramRunner chip8ProgramRunner)
+Game::Game(MainWindow& wnd, Chip8ProgramRunner chip8ProgramRunner, std::wstring name)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	_chip8ProgramRunner(chip8ProgramRunner)
+	_chip8ProgramRunner(chip8ProgramRunner),
+	programName(name)
 {
 	_chip8ProgramRunner.LoadProgram(programName);
 }

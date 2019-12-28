@@ -18,6 +18,7 @@
 *	You should have received a copy of the GNU General Public License					  *
 *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
 ******************************************************************************************/
+
 #include "MainWindow.h"
 #include "Game.h"
 #include "ChiliException.h"
@@ -29,6 +30,7 @@
 #include"..\Chip-8\OpcodeRunnerThree4BitValues.h"
 #include"..\Chip-8\OpcodeRunnerNoValues.h"
 #include"..\Chip-8\Opcodes.h"
+#include <shellapi.h>
 
 static void AddSprite(Chip8Cpu& cpu, int location, uint8_t sprite[5])
 {
@@ -207,8 +209,11 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 
 			OpcodeRunnerResolver opcodeRunnerResolver(opcodeTypeParser,typeToOpcodeParser) ;
 			Chip8ProgramRunner programRunner(chip8Cpu, opcodeRunnerResolver);
-
-			Game theGame(wnd, programRunner);
+			int nArgs = 0;
+			LPWSTR* args = nullptr;
+			args = CommandLineToArgvW(GetCommandLine(), &nArgs);
+			std::wstring name = args[1];
+			Game theGame(wnd, programRunner, name);
 			while (wnd.ProcessMessage())
 			{
 				theGame.Go();
