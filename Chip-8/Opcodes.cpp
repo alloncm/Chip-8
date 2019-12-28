@@ -242,19 +242,21 @@ void DrawSprite(Chip8Cpu& cpu, uint8_t xRegisterIndex, uint8_t yRegisterIndex, u
 		throw std::exception("height is bigger than 0xF" + height);
 	}
 
-
 	bool flliped = false;
 	uint16_t addressTemp = cpu.AddressRegister;
-	for (int i = cpu.GPRegisters[yRegisterIndex]; i < height; i++)
+	for (int i = 0; i < height; i++)
 	{
 		uint8_t v = cpu.Memory[addressTemp];
+		addressTemp++;
 		std::bitset<8> bits(v);
-		for (int j = cpu.GPRegisters[xRegisterIndex]; i < cpu.SPRITE_WIDTH; i++)
+		for (int j = 0; j < cpu.SPRITE_WIDTH; j++)
 		{
-			if (cpu.ScreenBuffer[cpu.SCREEN_WIDTH * i + j] != bits[i])
+			int x = j + cpu.GPRegisters[xRegisterIndex];
+			int y = i + cpu.GPRegisters[yRegisterIndex];
+			if (cpu.ScreenBuffer[cpu.SCREEN_WIDTH * y + x] != bits[7-j])
 			{
-				cpu.ScreenBuffer[cpu.SCREEN_WIDTH * i + j] = bits[i];
-				if (!cpu.ScreenBuffer[cpu.SCREEN_WIDTH * i + j])
+				cpu.ScreenBuffer[cpu.SCREEN_WIDTH * y + x] = bits[7-j];
+				if (!cpu.ScreenBuffer[cpu.SCREEN_WIDTH * y + x])
 				{
 					flliped = true;
 				}

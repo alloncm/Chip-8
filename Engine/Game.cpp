@@ -107,6 +107,8 @@ std::vector<bool> Game::GetInput()
 
 void Game::ComposeFrame()
 {
+
+	const int size = 12;
 	auto screenBuffer = _chip8ProgramRunner.GetScreenBuffer();
 	for (int i = 0; i < screenBuffer.size(); i++)
 	{
@@ -114,7 +116,6 @@ void Game::ComposeFrame()
 		{
 			if (screenBuffer[i][j])
 			{
-				const int size = 10;
 				int y = i * size;
 				int x = j * size;
 				for (int xx = x; xx < x + size; xx++)
@@ -122,6 +123,18 @@ void Game::ComposeFrame()
 					for (int yy = y; yy < y + size; yy++)
 					{
 						gfx.PutPixel(xx, yy, Colors::White);
+					}
+				}
+			}
+			else
+			{
+				int y = i * size;
+				int x = j * size;
+				for (int xx = x; xx < x + size; xx++)
+				{
+					for (int yy = y; yy < y + size; yy++)
+					{
+						gfx.PutPixel(xx, yy, Colors::Red);
 					}
 				}
 			}
