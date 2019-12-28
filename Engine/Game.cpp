@@ -41,7 +41,12 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	_chip8ProgramRunner.ChipCycle();
+	const int speed = 15;
+	for (int i = 0; i < speed;i++)
+	{
+		_chip8ProgramRunner.ChipCycle();
+	}
+
 	_chip8ProgramRunner.SetInput(GetInput());
 }
 
@@ -81,22 +86,28 @@ std::vector<bool> Game::GetInput()
 	case '9':
 		input[9] = true;
 		break;
-	case 'A':
+	case 'Q':
+	case 'q':
 		input[0xA] = true;
 		break;
-	case 'B':
+	case 'W':
+	case 'w':
 		input[0xB] = true;
 		break;
-	case 'C':
+	case 'E':
+	case 'e':
 		input[0xC] = true;
 		break;
-	case 'D':
+	case 'R':
+	case 'r':
 		input[0xD] = true;
 		break;
-	case 'E':
+	case 'T':
+	case 't':
 		input[0xE] = true;
 		break;
-	case 'F':
+	case 'Y':
+	case 'y':
 		input[0xF] = true;
 		break;
 	}
