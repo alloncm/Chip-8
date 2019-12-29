@@ -41,12 +41,12 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	_chip8ProgramRunner.SetInput(GetInput());
+
 	for (int i = 0; i < EMULATION_SPEED; i++)
 	{
 		_chip8ProgramRunner.ChipCycle();
 	}
-
-	_chip8ProgramRunner.SetInput(GetInput());
 }
 
 std::vector<bool> Game::GetInput()
@@ -128,7 +128,7 @@ void Game::ComposeFrame()
 			{
 				for (int tempY = y; tempY < y + PIXEL_SIZE; tempY++)
 				{
-					Color color = screenBuffer[i][j] ? Colors::White : Colors::Red;
+					Color color = screenBuffer[i][j] ? PIXEL_COLOR : BACKGROUND_COLOR;
 					gfx.PutPixel(tempX, tempY, color);
 				}
 			}
