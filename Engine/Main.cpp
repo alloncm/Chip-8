@@ -189,25 +189,25 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 			};
 
 			std::unordered_map<uint8_t, OpcodeRunner&> typeToOpcodeParser{
-				{0,OpcodeRunnerNoValues(chip8Cpu,resolverFor0)},
-				{1,OpcodeRunner12BitValue(Jump,chip8Cpu)},
-				{2,OpcodeRunner12BitValue(CallSubRoutine,chip8Cpu)},
-				{3,OpcodeRunner4Bit8BitValues(chip8Cpu, SkipIfRegisterEqualValue)},
-				{4,OpcodeRunner4Bit8BitValues(chip8Cpu, SkipIfRegisterNotEqualValue)},
-				{5,OpcodeRunnerTwo4BitValues(chip8Cpu,resolverFor5)},
-				{6,OpcodeRunner4Bit8BitValues(chip8Cpu,SetRegisterByValue)},
-				{7,OpcodeRunner4Bit8BitValues(chip8Cpu,AddValueToRegisterWithoutCarry)},
-				{8,OpcodeRunnerTwo4BitValues(chip8Cpu, resolverFor8)},
-				{9,OpcodeRunnerTwo4BitValues(chip8Cpu, resolverFor9)},
-				{0xA, OpcodeRunner12BitValue(SetAddressRegister,chip8Cpu)},
-				{0xB,OpcodeRunner12BitValue(JumpToFirstRegisterPlusValue,chip8Cpu)},
-				{0xC,OpcodeRunner4Bit8BitValues(chip8Cpu,AssignRegisterRandANDValue)},
-				{0xD,OpcodeRunnerThree4BitValues(chip8Cpu, DrawSprite)},
-				{0xE,OpcodeRunner4BitValue(chip8Cpu,resolverForE)},
-				{0xF,OpcodeRunner4BitValue(chip8Cpu, resolverForF)}
+				{0,*new OpcodeRunnerNoValues(chip8Cpu,resolverFor0)},
+				{1,*new OpcodeRunner12BitValue(Jump,chip8Cpu)},
+				{2,*new OpcodeRunner12BitValue(CallSubRoutine,chip8Cpu)},
+				{3,*new OpcodeRunner4Bit8BitValues(chip8Cpu, SkipIfRegisterEqualValue)},
+				{4,*new OpcodeRunner4Bit8BitValues(chip8Cpu, SkipIfRegisterNotEqualValue)},
+				{5,*new OpcodeRunnerTwo4BitValues(chip8Cpu,resolverFor5)},
+				{6,*new OpcodeRunner4Bit8BitValues(chip8Cpu,SetRegisterByValue)},
+				{7,*new OpcodeRunner4Bit8BitValues(chip8Cpu,AddValueToRegisterWithoutCarry)},
+				{8,*new OpcodeRunnerTwo4BitValues(chip8Cpu, resolverFor8)},
+				{9,*new OpcodeRunnerTwo4BitValues(chip8Cpu, resolverFor9)},
+				{0xA,*new OpcodeRunner12BitValue(SetAddressRegister,chip8Cpu)},
+				{0xB,*new OpcodeRunner12BitValue(JumpToFirstRegisterPlusValue,chip8Cpu)},
+				{0xC,*new OpcodeRunner4Bit8BitValues(chip8Cpu,AssignRegisterRandANDValue)},
+				{0xD,*new OpcodeRunnerThree4BitValues(chip8Cpu, DrawSprite)},
+				{0xE,*new OpcodeRunner4BitValue(chip8Cpu,resolverForE)},
+				{0xF,*new OpcodeRunner4BitValue(chip8Cpu, resolverForF)}
 			};
 
-			OpcodeRunnerResolver opcodeRunnerResolver(opcodeTypeParser,typeToOpcodeParser) ;
+			OpcodeRunnerResolver opcodeRunnerResolver(opcodeTypeParser, typeToOpcodeParser);
 			Chip8ProgramRunner programRunner(chip8Cpu, opcodeRunnerResolver);
 			int nArgs = 0;
 			LPWSTR* args = nullptr;
@@ -218,6 +218,13 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 			{
 				theGame.Go();
 			}
+
+			for (auto& opcodeRunnerPair : typeToOpcodeParser)
+			{
+				delete &opcodeRunnerPair.second;
+			}
+
+			LocalFree(args);
 		}
 		catch (const ChiliException& e)
 		{
@@ -258,6 +265,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs, INT)
 		MessageBox(nullptr, L"\n\nException caught at main window creation.",
 			L"Unhandled Non-STL Exception", MB_OK);
 	}
+
 
 	return 0;
 }

@@ -45,7 +45,9 @@ private:
 	/********************************/
 	/*  User Variables              */
 	Chip8ProgramRunner _chip8ProgramRunner;
-
 	std::wstring programName;
+	const unsigned int EMULATION_SPEED = 10;
+	const unsigned int PIXEL_SIZE = 12;
+	const Color PIXEL_COLOR = Colors::White;
 	/********************************/
 };

@@ -3,7 +3,7 @@
 #include<Windows.h>
 #include<vector>
 
-Chip8ProgramRunner::Chip8ProgramRunner(Chip8Cpu & cpu, OpcodeRunnerResolver opcodeRunnerResolver)
+Chip8ProgramRunner::Chip8ProgramRunner(Chip8Cpu & cpu, OpcodeRunnerResolver& opcodeRunnerResolver)
 	:
 	_cpu(cpu),
 	_opcodeRunnerResolver(opcodeRunnerResolver)
