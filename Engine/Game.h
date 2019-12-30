@@ -49,7 +49,7 @@ private:
 	std::vector<bool> _input;
 	unsigned int _frameCounter;
 	std::wstring programName;
-	static constexpr unsigned int INPUT_FRAME_TIME_UPDATE = 4;
+	static constexpr unsigned int INPUT_FRAME_TIME_UPDATE = 3;
 	static constexpr unsigned int OPCODES_PER_FRAME = 10;
 	static constexpr unsigned int PIXEL_SIZE = 12;
 	static constexpr Color PIXEL_COLOR = Colors::Blue;

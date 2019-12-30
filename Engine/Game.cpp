@@ -52,6 +52,8 @@ void Game::UpdateModel()
 		_chip8ProgramRunner.ChipCycle();
 	}
 	
+	_chip8ProgramRunner.TimersCycle();
+
 	_frameCounter++;
 	if (_frameCounter >= INPUT_FRAME_TIME_UPDATE)
 	{

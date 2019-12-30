@@ -41,6 +41,10 @@ void Chip8ProgramRunner::ChipCycle()
 			_cpu.Jumped = false;
 		}
 	}
+}
+
+void Chip8ProgramRunner::TimersCycle()
+{
 	if (_cpu.DelayTimer > 0)
 	{
 		_cpu.DelayTimer--;
