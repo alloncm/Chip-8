@@ -75,5 +75,9 @@ void Chip8ProgramRunner::SetInput(std::vector<bool> input)
 	for (int i = 0; i < _cpu.NUMBER_OF_KEYS; i++)
 	{
 		_cpu.Keys[i] = input[i];
+		if (input[i])
+		{
+			_cpu.Release();
+		}
 	}
 }
