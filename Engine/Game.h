@@ -46,9 +46,9 @@ private:
 	/*  User Variables              */
 	Chip8ProgramRunner _chip8ProgramRunner;
 	std::wstring programName;
-	static constexpr unsigned int EMULATION_SPEED = 2;
+	static constexpr unsigned int OPCODES_PER_FRAME = 10;
 	static constexpr unsigned int PIXEL_SIZE = 12;
-	static constexpr Color PIXEL_COLOR = Colors::White;
-	static constexpr Color BACKGROUND_COLOR = Colors::Red;
+	static constexpr Color PIXEL_COLOR = Colors::Blue;
+	static constexpr Color BACKGROUND_COLOR = Colors::White;
 	/********************************/
 };

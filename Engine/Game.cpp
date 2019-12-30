@@ -43,7 +43,7 @@ void Game::UpdateModel()
 {
 	_chip8ProgramRunner.SetInput(GetInput());
 
-	for (int i = 0; i < EMULATION_SPEED; i++)
+	for (int i = 0; i < OPCODES_PER_FRAME; i++)
 	{
 		_chip8ProgramRunner.ChipCycle();
 	}
