@@ -68,58 +68,64 @@ void Game::UpdateInput()
 	char key = wnd.kbd.ReadChar();
 	switch (key)
 	{
-	case '0':
+	case '1':
 		_input[0] = true;
 		break;
-	case '1':
+	case '2':
 		_input[1] = true;
 		break;
-	case '2':
+	case '3':
 		_input[2] = true;
 		break;
-	case '3':
-		_input[3] = true;
-		break;
 	case '4':
-		_input[4] = true;
-		break;
-	case '5':
-		_input[5] = true;
-		break;
-	case '6':
-		_input[6] = true;
-		break;
-	case '7':
-		_input[7] = true;
-		break;
-	case '8':
-		_input[8] = true;
-		break;
-	case '9':
-		_input[9] = true;
+		_input[3] = true;
 		break;
 	case 'Q':
 	case 'q':
-		_input[0xA] = true;
+		_input[4] = true;
 		break;
 	case 'W':
 	case 'w':
-		_input[0xB] = true;
+		_input[5] = true;
 		break;
 	case 'E':
 	case 'e':
-		_input[0xC] = true;
+		_input[6] = true;
 		break;
 	case 'R':
 	case 'r':
+		_input[7] = true;
+		break;
+	case 'A':
+	case 'a':
+		_input[8] = true;
+		break;
+	case 'S':
+	case 's':
+		_input[9] = true;
+		break;
+	case 'D':
+	case 'd':
+		_input[0xA] = true;
+		break;
+	case 'F':
+	case 'f':
+		_input[0xB] = true;
+		break;
+	case 'Z':
+	case 'z':
+		_input[0xC] = true;
+		break;
+	case 'X':
+	case 'x':
 		_input[0xD] = true;
 		break;
-	case 'T':
-	case 't':
+	case 'C':
+	case 'c':
 		_input[0xE] = true;
 		break;
-	case 'Y':
-	case 'y':
+	case 'V':
+	case 'v':
 		_input[0xF] = true;
 		break;
 	}
