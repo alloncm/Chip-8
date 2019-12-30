@@ -1,5 +1,5 @@
-/****************************************************************************************** 
- *	Chili DirectX Framework Version 16.07.20											  *	
+/******************************************************************************************
+ *	Chili DirectX Framework Version 16.07.20											  *
  *	Game.h																				  *
  *	Copyright 2016 PlanetChili.net <http://www.planetchili.net>							  *
  *																						  *
@@ -28,16 +28,17 @@
 class Game
 {
 public:
-	Game( class MainWindow& wnd , Chip8ProgramRunner chip8ProgramRunner, std::wstring name);
-	Game( const Game& ) = delete;
-	Game& operator=( const Game& ) = delete;
+	Game(class MainWindow& wnd, Chip8ProgramRunner chip8ProgramRunner, std::wstring name);
+	Game(const Game&) = delete;
+	Game& operator=(const Game&) = delete;
 	void Go();
 private:
 	void ComposeFrame();
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
-	std::vector<bool> GetInput();
+	void UpdateInput();
+	void ClearInput();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -45,7 +46,10 @@ private:
 	/********************************/
 	/*  User Variables              */
 	Chip8ProgramRunner _chip8ProgramRunner;
+	std::vector<bool> _input;
+	unsigned int _frameCounter;
 	std::wstring programName;
+	static constexpr unsigned int INPUT_FRAME_TIME_UPDATE = 4;
 	static constexpr unsigned int OPCODES_PER_FRAME = 10;
 	static constexpr unsigned int PIXEL_SIZE = 12;
 	static constexpr Color PIXEL_COLOR = Colors::Blue;

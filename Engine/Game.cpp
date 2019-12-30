@@ -26,14 +26,18 @@ Game::Game(MainWindow& wnd, Chip8ProgramRunner chip8ProgramRunner, std::wstring 
 	wnd(wnd),
 	gfx(wnd),
 	_chip8ProgramRunner(chip8ProgramRunner),
-	programName(name)
+	programName(name),
+	_frameCounter(0)
 {
 	_chip8ProgramRunner.LoadProgram(programName);
+	_input.resize(Chip8Cpu::NUMBER_OF_KEYS);
+	ClearInput();
 }
 
 void Game::Go()
 {
 	gfx.BeginFrame();
+	UpdateInput();
 	UpdateModel();
 	ComposeFrame();
 	gfx.EndFrame();
@@ -41,77 +45,90 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	_chip8ProgramRunner.SetInput(GetInput());
+	_chip8ProgramRunner.SetInput(_input);
 
 	for (int i = 0; i < OPCODES_PER_FRAME; i++)
 	{
 		_chip8ProgramRunner.ChipCycle();
 	}
+	
+	_frameCounter++;
+	if (_frameCounter >= INPUT_FRAME_TIME_UPDATE)
+	{
+		_frameCounter = 0;
+		ClearInput();
+	}
+
 }
 
-std::vector<bool> Game::GetInput()
+void Game::UpdateInput()
 {
-	std::vector<bool> input(16);
 	char key = wnd.kbd.ReadChar();
 	switch (key)
 	{
 	case '0':
-		input[0] = true;
+		_input[0] = true;
 		break;
 	case '1':
-		input[1] = true;
+		_input[1] = true;
 		break;
 	case '2':
-		input[2] = true;
+		_input[2] = true;
 		break;
 	case '3':
-		input[3] = true;
+		_input[3] = true;
 		break;
 	case '4':
-		input[4] = true;
+		_input[4] = true;
 		break;
 	case '5':
-		input[5] = true;
+		_input[5] = true;
 		break;
 	case '6':
-		input[6] = true;
+		_input[6] = true;
 		break;
 	case '7':
-		input[7] = true;
+		_input[7] = true;
 		break;
 	case '8':
-		input[8] = true;
+		_input[8] = true;
 		break;
 	case '9':
-		input[9] = true;
+		_input[9] = true;
 		break;
 	case 'Q':
 	case 'q':
-		input[0xA] = true;
+		_input[0xA] = true;
 		break;
 	case 'W':
 	case 'w':
-		input[0xB] = true;
+		_input[0xB] = true;
 		break;
 	case 'E':
 	case 'e':
-		input[0xC] = true;
+		_input[0xC] = true;
 		break;
 	case 'R':
 	case 'r':
-		input[0xD] = true;
+		_input[0xD] = true;
 		break;
 	case 'T':
 	case 't':
-		input[0xE] = true;
+		_input[0xE] = true;
 		break;
 	case 'Y':
 	case 'y':
-		input[0xF] = true;
+		_input[0xF] = true;
 		break;
 	}
+}
 
-	return input;
+void Game::ClearInput()
+{
+	for (int i = 0; i < _input.size(); i++)
+	{
+		_input[i] = false;
+	}
 }
 
 
