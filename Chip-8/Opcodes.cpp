@@ -310,22 +310,26 @@ void SetRegisterToDelayTimer(Chip8Cpu& cpu, uint8_t registerIndex)
 void BlockKeyIsPressedAndAssignItToRegister(Chip8Cpu& cpu, uint8_t registerIndex)
 {
 	CheckForValidRegister(cpu, registerIndex);
-	cpu.Block();
-	bool found = false;
-	uint8_t i = 0;
-	while (i < cpu.NUMBER_OF_KEYS && !found)
+	auto onReleaseLambda = [registerIndex](Chip8Cpu& chipCpu) 
 	{
-		if (cpu.Keys[i])
+		bool found = false;
+		uint8_t i = 0;
+		while (i < chipCpu.NUMBER_OF_KEYS && !found)
 		{
-			found = true;
+			if (chipCpu.Keys[i])
+			{
+				found = true;
+			}
+			else
+			{
+				i++;
+			}
 		}
-		else
-		{
-			i++;
-		}
-	}
 
-	cpu.GPRegisters[registerIndex] = i;
+		chipCpu.GPRegisters[registerIndex] = i;
+	};
+
+	cpu.Block(onReleaseLambda);
 }
 
 void SetDelayTimerToRegister(Chip8Cpu& cpu, uint8_t registerIndex)

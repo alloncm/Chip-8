@@ -1,6 +1,7 @@
 #pragma once
 #include<cstdint>
 #include<exception>
+#include<functional>
 
 class Chip8Cpu
 {
@@ -29,6 +30,7 @@ private:
 	unsigned int _stackCurrentSize = 0;
 	bool _isBlocking = false;
 	uint16_t _fontsSpriteAddresses[NUMBER_OF_KEYS];
+	std::function<void(Chip8Cpu&)> _onRelease = nullptr;
 
 public:
 	Chip8Cpu(uint16_t fontsSpriteAddresses[NUMBER_OF_KEYS])
@@ -46,14 +48,20 @@ public:
 		return _isBlocking;
 	}
 
-	void Block()
+	void Block(std::function<void(Chip8Cpu&)> onRelease)
 	{
 		_isBlocking = true;
+		_onRelease = onRelease;
 	}
 
 	void Release()
 	{
 		_isBlocking = false;
+		if (_onRelease != nullptr)
+		{
+			_onRelease(*this);
+			_onRelease = nullptr;
+		}
 	}
 
 	uint16_t Pop()

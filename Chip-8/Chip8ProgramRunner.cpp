@@ -77,7 +77,10 @@ void Chip8ProgramRunner::SetInput(std::vector<bool> input)
 		_cpu.Keys[i] = input[i];
 		if (input[i])
 		{
-			_cpu.Release();
+			if (_cpu.IsBlocking())
+			{
+				_cpu.Release();
+			}
 		}
 	}
 }
