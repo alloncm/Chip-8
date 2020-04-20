@@ -8,7 +8,7 @@ Should be compatible with C++11 and above.
 
 ## Building
 
-You can MSBuild or visual studio to build it
+You can use MSBuild or visual studio to build it
 
 ## Using
 
