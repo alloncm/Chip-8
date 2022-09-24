@@ -73,7 +73,7 @@ public:
 			return _stack[_stackCurrentSize];
 		}
 
-		throw std::exception("Stack current size is 0 or below");
+		throw "Stack current size is 0 or below";
 	}
 
 	void Push(uint16_t value)
@@ -85,7 +85,7 @@ public:
 		}
 		else
 		{
-			throw std::exception("Stack overflow");
+			throw "Stack overflow";
 		}
 	}
 
@@ -97,7 +97,7 @@ public:
 		}
 		else
 		{
-			throw std::exception("no sprite for this key exist");
+			throw "no sprite for this key exist";
 		}
 	}
 };

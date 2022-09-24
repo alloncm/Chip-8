@@ -14,37 +14,37 @@ void Jump(Chip8Cpu& cpu, uint16_t);
 void CallSubRoutine(Chip8Cpu& cpu, uint16_t);
 
 //3XNN
-void SkipIfRegisterEqualValue(Chip8Cpu& cpu, uint8_t registerIndex, uint8_t value);
+void SkipIfRegisterEqualValue(Chip8Cpu& cpu, uint16_t opcode);
 
 //4XNN
-void SkipIfRegisterNotEqualValue(Chip8Cpu& cpu, uint8_t registerIndex, uint8_t value);
+void SkipIfRegisterNotEqualValue(Chip8Cpu& cpu, uint16_t opcode);
 
 //5XY0
-void SkipIfRegisterEqualRegister(Chip8Cpu& cpu, uint8_t registerXIndex, uint8_t registerYIndex);
+void SkipIfRegisterEqualRegister(Chip8Cpu& cpu, uint16_t opcode);
 
 //6XNN
-void SetRegisterByValue(Chip8Cpu& cpu, uint8_t registerIndex, uint8_t value);
+void SetRegisterByValue(Chip8Cpu& cpu, uint16_t opcode);
 
 //7XNN
-void AddValueToRegisterWithoutCarry(Chip8Cpu& cpu, uint8_t registerIndex, uint8_t value);
+void AddValueToRegisterWithoutCarry(Chip8Cpu& cpu, uint16_t opcode);
 
 //8XY0 
-void AssignRegisterToRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx);
+void AssignRegisterToRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndex);
 
 //8XY1
-void SetsRegisterToRegisterORRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx);
+void SetsRegisterToRegisterORRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndex);
 
 //8XY2
-void SetsRegisterToRegisterANDRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx);
+void SetsRegisterToRegisterANDRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndex);
 
 //8XY3
-void SetsRegisterToRegisterXORRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx);
+void SetsRegisterToRegisterXORRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndex);
 
 //8XY4
-void AddRegisterToRegisterWithCarry(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx);
+void AddRegisterToRegisterWithCarry(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndex);
 
 //8XY5
-void SubtractRegisterFromRegisterWithCarry(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndedx);
+void SubtractRegisterFromRegisterWithCarry(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t sourceRegisterIndex);
 
 //8XY6
 void ShiftRightBy1RegisterToRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t outputRegisterIndedx);
@@ -56,19 +56,19 @@ void AssignRegisterXRegisterYMinusRegisterX(Chip8Cpu& cpu, uint8_t xRegisterInde
 void ShiftLeftBy1RegisterToRegister(Chip8Cpu& cpu, uint8_t destRegisterIndex, uint8_t outputRegisterIndedx);
 
 //9XY0
-void SkipIfRegisterNotEqualRegister(Chip8Cpu& cpu, uint8_t registerXIndex, uint8_t registerYIndex);
+void SkipIfRegisterNotEqualRegister(Chip8Cpu& cpu, uint16_t opcode);
 
 //ANNN
-void SetAddressRegister(Chip8Cpu& cpu, uint16_t value);
+void SetAddressRegister(Chip8Cpu& cpu, uint16_t opcode);
 
 //BNNN
-void JumpToFirstRegisterPlusValue(Chip8Cpu& cpu, uint16_t value);
+void JumpToFirstRegisterPlusValue(Chip8Cpu& cpu, uint16_t opcode);
 
 //CXNN
-void AssignRegisterRandANDValue(Chip8Cpu& cpu, uint8_t registerIndex, uint8_t value);
+void AssignRegisterRandANDValue(Chip8Cpu& cpu, uint16_t opcode);
 
 //DXYN
-void DrawSprite(Chip8Cpu& cpu, uint8_t xRegisterIndex, uint8_t yRegisterIndex, uint8_t height);
+void DrawSprite(Chip8Cpu& cpu, uint16_t opcode);
 
 //EX9E
 void SkipIfKeyInRegisterPressed(Chip8Cpu& cpu, uint8_t registerIndex);
